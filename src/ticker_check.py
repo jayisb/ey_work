@@ -74,10 +74,10 @@ print correct_companies_set
 print unique_company_list
 print incorrect_companies_list
 
-with open("/home/jay/Desktop/correct_kor.csv", "wb") as f:
+with open("/home/jay/Desktop/ncorrect_kor.csv", "wb") as f:
     writer = csv.writer(f)
     writer.writerows(unique_company_list)
 
-with open("/home/jay/Desktop/incorrect_kor.csv", "wb") as f:
+with open("/home/jay/Desktop/nincorrect_kor.csv", "wb") as f:
     writer = csv.writer(f)
     writer.writerows(incorrect_companies_list)

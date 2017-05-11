@@ -27,12 +27,11 @@ def ocr_space_file(filename, language, overlay=False, api_key='PKMXB3776888A'):
                           )
     return r.content.decode()
 
-test_file = ocr_space_file(filename='/home/jay/Desktop/enriched/ticker_sample_20170503-161730.png.png', language='kor')
-input_directory = "/home/jay/Desktop/enriched/"
+input_directory = "/home/jay/Desktop/en/"
 
 korean_failed = []
 number_mismatch = []
-for filename in os.listdir("/home/jay/Desktop/enriched/"):
+for filename in os.listdir("/home/jay/Desktop/en/"):
     if filename.endswith(".png"):
         print(os.path.join(input_directory, filename))
         try:

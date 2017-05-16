@@ -27,11 +27,12 @@ def ocr_space_file(filename, language, overlay=False, api_key='PKMXB3776888A'):
                           )
     return r.content.decode()
 
-input_directory = "/home/jay/Desktop/en/"
+input_directory = "/home/jay/Desktop/en1/"
 
 korean_failed = []
 number_mismatch = []
-for filename in os.listdir("/home/jay/Desktop/en/"):
+error_files = []
+for filename in os.listdir(input_directory):
     if filename.endswith(".png"):
         print(os.path.join(input_directory, filename))
         try:
@@ -39,17 +40,24 @@ for filename in os.listdir("/home/jay/Desktop/en/"):
         except:
             korean_failed.append(filename)
             test_file = ocr_space_file(filename=os.path.join(input_directory, filename), language="eng")
-        json_d = json.loads(test_file)
-        company_str = json_d["ParsedResults"][0]["ParsedText"]
-        company_list = company_str.splitlines()
-        if len(company_list) < 19:
-            number_mismatch.append(filename)
+        try:
+            json_d = json.loads(test_file)
+            #print test_file
+            #print json_d
+            company_str = json_d["ParsedResults"][0]["ParsedText"]
+            company_list = company_str.splitlines()
+            if len(company_list) < 19:
+                number_mismatch.append(filename)
 
-        for company in company_list:
-            company_f = company.lstrip()
-            company_clean = company_f.rstrip()
-            print company_clean
+            for company in company_list:
+                company_f = company.lstrip()
+                company_clean = company_f.rstrip()
+                print company_clean
+        except:
+            error_files.append(filename)
 
 print korean_failed
 print "mismatch"
 print number_mismatch
+print "error"
+print error_files

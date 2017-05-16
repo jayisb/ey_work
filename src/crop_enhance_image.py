@@ -16,10 +16,10 @@ def image_enhancement(original_image):
 # For B/W
 # image = cv2.imread("/home/jay/Pictures/bloomberg/sample_20170428-120928.png", 0)
 
-input_directory = "/home/jay/Desktop/11-05-2017/"
-output_directory = "/home/jay/Desktop/en/"
+input_directory = "/home/jay/Desktop/12-05-2017/"
+output_directory = "/home/jay/Desktop/en1/"
 
-for filename in os.listdir("/home/jay/Desktop/11-05-2017/"):
+for filename in os.listdir(input_directory):
     if filename.endswith(".png"):
         print(os.path.join(input_directory, filename))
         input_image = cv2.imread(os.path.join(input_directory, filename))

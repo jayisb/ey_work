@@ -17,7 +17,7 @@ def image_enhancement(original_image):
 # image = cv2.imread("/home/jay/Pictures/bloomberg/sample_20170428-120928.png", 0)
 
 input_directory = "/home/jay/Desktop/12-05-2017/"
-output_directory = "/home/jay/Desktop/en1/"
+output_directory = "/home/jay/Desktop/Ticker_12-05-2017/"
 
 for filename in os.listdir(input_directory):
     if filename.endswith(".png"):

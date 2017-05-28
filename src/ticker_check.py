@@ -60,12 +60,13 @@ incorrect_insert_query = """
 
 db = Database()
 
-with open('/home/jay/Desktop/sample1.txt') as fp:
+with open('/home/jay/Desktop/ocr_output/output_Ticker_12-05-2017.txt') as fp:
     for line in fp:
         line = line.rstrip()
         if "jay" in line:
             print "file done" + str(count)
             count = count + 1
+            image_path = line
             image = line.rsplit("/", 1)[1]
             print "Processing file %s" % image
             image_name = image
@@ -84,11 +85,11 @@ with open('/home/jay/Desktop/sample1.txt') as fp:
                 if firm_name:
                     print "inserting firm name for %s"%ticker_c
                     db.insert(
-                        correct_insert_query.format(ticker=ticker_s, company_name=firm_name, image_name=image_name))
+                        correct_insert_query.format(ticker=ticker_s, company_name=firm_name, image_name=image_path))
                 else:
                     print "didn't get firm name for %s"%ticker_c
                     db.insert(
-                        incorrect_insert_query.format(ticker=ticker_s, image_name=image_name))
+                        incorrect_insert_query.format(ticker=ticker_s, image_name=image_path))
 
 # correct_companies_set = set(tuple(x) for x in correct_companies_list)
 # unique_company_list = list(correct_companies_set)

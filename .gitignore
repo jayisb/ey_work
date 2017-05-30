@@ -2,6 +2,7 @@
 .idea/
 *.iml
 *.iws
+src/*.pyc
 
 # Mac
 .DS_Store

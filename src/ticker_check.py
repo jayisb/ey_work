@@ -3,19 +3,19 @@ import requests
 import csv
 from database import Database
 
-
+# Transforming the ticker in colon format
 def last_replace(s, old=" ", new=":", occurrence=1):
     li = s.rsplit(old, occurrence)
     return new.join(li)
 
-
+# Removing extra spaces if they added by OCR call
 def remove_spaces(str):
     count = str.count(" ")
     count = count - 1
     str_f = str.replace(" ", "", count)
     return str_f
 
-
+# Extracting company name using the ticker
 def check_ticker(soup, ticker_c):
     tables = soup.findAll("table", {"class": "dual_border_data_table"})
     company_name = ""
@@ -37,7 +37,7 @@ def check_ticker(soup, ticker_c):
             company_name = ""
     return company_name
 
-
+# API to get the company name using ticker 
 url = "https://www.bloomberg.com/markets/symbolsearch?query={ticker}&commit=Find+Symbols"
 correct_companies_list = []
 incorrect_companies_list = []
@@ -60,6 +60,7 @@ incorrect_insert_query = """
 
 db = Database()
 
+# Inserting the ticker and company names extracted using OCR
 with open("/home/jay/Desktop/ocr_output/china_output_suppliers_13.txt") as fp:
     for line in fp:
         line = line.rstrip()
@@ -73,15 +74,18 @@ with open("/home/jay/Desktop/ocr_output/china_output_suppliers_13.txt") as fp:
         else:
             ticker_s = remove_spaces(line)
             ticker_c = last_replace(ticker_s)
+            # Check if Ticker is already present
             companies = db.query(ticker_check_query.format(table_name='new_ticker_list', ticker=ticker_s.replace("'", "\\'")))
             invalid_companies = db.query(ticker_check_query.format(table_name='new_incorrect_ticker_list', ticker=ticker_s.replace("'", "\\'")))
             if len(companies) > 0 or len(invalid_companies) > 0:
                 print "%s ticker already exists" % ticker_s
             else:
+                # If not, calls API and fetches the name
                 bm_url = url.format(ticker=ticker_c)
                 parsed = requests.get(bm_url)
                 soup = BeautifulSoup(parsed.content, 'html.parser')
                 firm_name = check_ticker(soup, ticker_c)
+                # Inserting the ticker name
                 if firm_name:
                     print "inserting firm name for %s"%ticker_c
                     db.insert(

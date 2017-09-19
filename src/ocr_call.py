@@ -3,7 +3,7 @@ import json
 import os
 
 
-def ocr_space_file(filename, language, overlay=False, api_key='PKMXB3776888A'):
+def ocr_space_file(filename, language, overlay=False, api_key='PKMXB4121888A'):
     """ OCR.space API request with local file.
         Python3.5 - not tested on 2.7
     :param filename: Your file path & name.
@@ -29,8 +29,8 @@ def ocr_space_file(filename, language, overlay=False, api_key='PKMXB3776888A'):
     return r.content.decode()
 
 
-input_directory_name = "Ticker_12-05-2017"
-input_directory = "/home/jay/Desktop/" + input_directory_name + "/"
+input_directory_name = "customers_13"
+input_directory = "/home/jay/Desktop/china_sc_tickers/" + input_directory_name + "/"
 output_directory = "/home/jay/Desktop/ocr_output/"
 error_directory = "/home/jay/Desktop/ocr_error/"
 
@@ -39,8 +39,8 @@ english_failed = []
 number_mismatch = []
 error_files = []
 
-output_filename = "output_{dir_name}.txt"
-error_filename = "error_{dir_name}.txt"
+output_filename = "china_output_{dir_name}.txt"
+error_filename = "china_error_{dir_name}.txt"
 
 output_log = open(os.path.join(output_directory, output_filename.format(dir_name=input_directory_name)), "w")
 error_log = open(os.path.join(error_directory, error_filename.format(dir_name=input_directory_name)), "w")

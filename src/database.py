@@ -15,7 +15,8 @@ class Database:
         try:
             self.cursor.execute(query)
             self.connection.commit()
-        except:
+        except MySQLdb.Error as e:
+            print e
             self.connection.rollback()
 
 

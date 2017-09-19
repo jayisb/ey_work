@@ -11,7 +11,7 @@ def remove_spaces(str):
 
 db = Database()
 
-onlyfiles = [f for f in listdir("/home/jay/Desktop/ocr_output/") if isfile(join("/home/jay/Desktop/ocr_output/", f))]
+onlyfiles = [f for f in listdir("/home/jay/Desktop/temp/") if isfile(join("/home/jay/Desktop/temp/", f))]
 
 print onlyfiles
 
@@ -20,7 +20,7 @@ read_firstline = False
 processed_firms = []
 
 for filename in onlyfiles:
-    with open("/home/jay/Desktop/ocr_output/"+filename) as fp:
+    with open("/home/jay/Desktop/temp/"+filename) as fp:
         for line in fp:
             line = line.rstrip()
             if "jay" in line:
@@ -42,13 +42,13 @@ print processed_firms
 processed_firms = sorted(set(processed_firms), key=processed_firms.index)
 #processed_firms_list = list(processed_firms)
 
-with open("/home/jay/Desktop/customer_list.csv", 'wb') as myfile:
+with open("/home/jay/Desktop/customer_list_2.csv", 'wb') as myfile:
     writer = csv.writer(myfile)
     for val in processed_firms:
         writer.writerow([val])
 
-reader = csv.reader(open('/home/jay/Desktop/customer_list.csv', 'rb'))
-writer = csv.writer(open('/home/jay/Desktop/customer_list_name.csv', 'w'))
+reader = csv.reader(open('/home/jay/Desktop/customer_list_2.csv', 'rb'))
+writer = csv.writer(open('/home/jay/Desktop/customer_list_name_2.csv', 'w'))
 
 for row in reader:
     print row[0]

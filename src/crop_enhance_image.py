@@ -16,18 +16,21 @@ def image_enhancement(original_image):
 # For B/W
 # image = cv2.imread("/home/jay/Pictures/bloomberg/sample_20170428-120928.png", 0)
 
-input_directory = "/home/jay/Desktop/12-05-2017/"
-output_directory = "/home/jay/Desktop/Ticker_12-05-2017/"
+input_directory = "/home/jay/Desktop/china_sc/suppliers_17/"
+output_directory = "/home/jay/Desktop/china_sc_tickers/suppliers_17/"
+
+if not os.path.exists(output_directory):
+    os.makedirs(output_directory)
 
 for filename in os.listdir(input_directory):
     if filename.endswith(".png"):
         print(os.path.join(input_directory, filename))
         input_image = cv2.imread(os.path.join(input_directory, filename))
         #cv2.imshow(input_image)
-        ticker_img = input_image[382:989, 45:321]  # Crop from x, y, w, h -> 100, 200, 300, 400
+        ticker_img = input_image[382:989, 45:665]  # Crop from x, y, w, h -> 100, 200, 300, 400
         ticker_img = image_enhancement(ticker_img)
         time_str = time.strftime("%Y%m%d-%H%M%S")
-        file_name = "ticker_" + filename + ".png"
+        file_name = "ticker_" + filename
         location = os.path.join(output_directory, file_name)
         cv2.imwrite(location, ticker_img)
 

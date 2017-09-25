@@ -2,7 +2,7 @@ import requests
 import json
 import os
 
-
+# API call to ocr.space with the key
 def ocr_space_file(filename, language, overlay=False, api_key='PKMXB4121888A'):
     """ OCR.space API request with local file.
         Python3.5 - not tested on 2.7
@@ -29,8 +29,11 @@ def ocr_space_file(filename, language, overlay=False, api_key='PKMXB4121888A'):
     return r.content.decode()
 
 
-input_directory_name = "customers1_correct_available_tickers"
-input_directory = "/home/jay/Documents/jay_data/" + input_directory_name + "/"
+# Input directory containing the cropped and enhanced data
+input_directory_name = "customers_13"
+input_directory = "/home/jay/Desktop/china_sc_tickers/" + input_directory_name + "/"
+# Output file for OCR results
+
 output_directory = "/home/jay/Desktop/ocr_output/"
 error_directory = "/home/jay/Desktop/ocr_error/"
 
@@ -52,20 +55,25 @@ for filename in os.listdir(input_directory):
         print "processing file: " + filename
         print count
         count = count + 1
+        # Basic logging
         output_log.write(os.path.join(input_directory, filename) + "\n")
         try:
+            # Korean language gives the best accuracy, so first I try using that.
             test_file = ocr_space_file(filename=os.path.join(input_directory, filename), language="kor")
         except:
             korean_failed.append(os.path.join(input_directory, filename))
             try:
+                # In case, that call fails, I try to extract content using English language.
                 test_file = ocr_space_file(filename=os.path.join(input_directory, filename), language="eng")
             except:
                 english_failed.append(os.path.join(input_directory, filename))
                 test_file = ""
         try:
+            # JSON parsing
             json_d = json.loads(test_file)
             # print test_file
             # print json_d
+            # Fetching the array of parsed text
             company_str = json_d["ParsedResults"][0]["ParsedText"]
             company_list = company_str.splitlines()
             if len(company_list) < 19:
@@ -74,6 +82,7 @@ for filename in os.listdir(input_directory):
             for company in company_list:
                 company_f = company.lstrip()
                 company_clean = company_f.rstrip()
+                # Writing output in output file
                 output_log.write(company_clean + "\n")
         except:
             error_files.append(os.path.join(input_directory, filename))

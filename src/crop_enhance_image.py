@@ -16,8 +16,8 @@ def image_enhancement(original_image):
 # For B/W
 # image = cv2.imread("/home/jay/Pictures/bloomberg/sample_20170428-120928.png", 0)
 
-input_directory = "/home/jay/Desktop/china_sc/suppliers_17/"
-output_directory = "/home/jay/Desktop/china_sc_tickers/suppliers_17/"
+input_directory = "/home/jay/Documents/jay_data/suppliers1_correct_available/"
+output_directory = "/home/jay/Documents/jay_data/suppliers1_correct_available_tickers/"
 
 if not os.path.exists(output_directory):
     os.makedirs(output_directory)

@@ -29,8 +29,8 @@ def ocr_space_file(filename, language, overlay=False, api_key='PKMXB4121888A'):
     return r.content.decode()
 
 
-input_directory_name = "customers_13"
-input_directory = "/home/jay/Desktop/china_sc_tickers/" + input_directory_name + "/"
+input_directory_name = "customers1_correct_available_tickers"
+input_directory = "/home/jay/Documents/jay_data/" + input_directory_name + "/"
 output_directory = "/home/jay/Desktop/ocr_output/"
 error_directory = "/home/jay/Desktop/ocr_error/"
 
@@ -39,8 +39,8 @@ english_failed = []
 number_mismatch = []
 error_files = []
 
-output_filename = "china_output_{dir_name}.txt"
-error_filename = "china_error_{dir_name}.txt"
+output_filename = "customers1_correct_available_tickers_17_output_{dir_name}.txt"
+error_filename = "customers1_correct_available_tickers_17_error_{dir_name}.txt"
 
 output_log = open(os.path.join(output_directory, output_filename.format(dir_name=input_directory_name)), "w")
 error_log = open(os.path.join(error_directory, error_filename.format(dir_name=input_directory_name)), "w")
